@@ -9,8 +9,9 @@
                     <div class="card-body">
                         <div class="py-3 d-flex flex-column justify-content-between">
                             <h4 for="task" class="p-2 fw-bold">New Task</h4> 
-                            <input type="text" class="form-control my-2" id="task" placeholder="To do ..." > 
-                            <button class="btn btn-primary my-2">Add task </button>
+                            <input type="text" class="form-control my-2" id="task" placeholder="To do ..." v-model="newTodoTitle"> 
+                            <p>{{newTodo}}</p>
+                            <button class="btn btn-primary my-2" @click="addTodo">Add task </button>
                         </div>
                         <hr>
                         <h4 class="p-3 fw-bold">Your task list </h4>
@@ -34,6 +35,8 @@
 import OneTask from "../components/OneTask.vue"
 import getToDos from "../composables/getToDos.js"
 
+import {onBeforeUpdate,onUpdated, ref, shallowRef,} from "vue"
+
 export default {
   name: 'HomeView',
   components: {
@@ -41,10 +44,19 @@ export default {
   },
   setup(){
     console.log("setup Home")
-
     const {todos, error, loadData} = getToDos()
 
-  return {todos, error, loadData}
+const newTodoTitle = ref("")
+    const addTodo = ()=>{
+      console.log("add")
+      const newTodo = shallowRef({title: newTodoTitle.value , completed:false, id:Math.random()*10})
+      todos.value.push(newTodo.value)
+      console.log(todos.value)
+      console.log(todos)
+      return todos
+    }
+     
+  return {todos, error, loadData, newTodoTitle, addTodo}
   }
 }
 
