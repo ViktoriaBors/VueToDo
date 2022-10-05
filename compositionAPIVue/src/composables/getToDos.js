@@ -1,7 +1,7 @@
 import {ref, shallowRef,} from "vue"
 
 const getToDos = ()=>{
-    const todos = shallowRef("")
+    const todos = ref("")
     const error = ref(null)
     
     const loadData = async ()=>{          

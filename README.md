@@ -22,7 +22,21 @@ It is a practice mini project to get more hands-on experience with Vue.
 
  I also tried to make this application in option Api (Vue 2 style) - but I got stucked, so I jumped back and continued with the composition Api. My plan is to still try the "older" version too later.
 
-## **_What have I learned_**
-Vue and more Vue
+ **Day 3 with CRUD app**
 
-## Deployed: soon
+ After yesterday problem with re-render, I went back to take a look at option API version. It was some stupid problem (wrong folder reference) adn therefore it did not load the page first. The I managed to add new task and re-render it too. I mixed up that at option API, I dont need to use ref to read out value from an input field.
+
+ I was still stuck with the re-render, when I realized I used again ref inside the fetch method... Deleting that and saving the fetch data as it is (proxy) solved all my problems :D Suddenly all the function worked.
+
+ Now time to check and finish the CRUD methods in the composition API. First I realized again that all the re-render did not work because I used shallowRef instead if ref. Ref is "more reactive", for any operation and change it will trigger a re-render.
+ 
+ Then showing the input field to edit task left. I declared the showInput as a ref(false) and then tried to change it by clicking to a button. It changed it, but did not rendered it... The solution was in the end, I declared showInput as a ref("") and assigned false or true value when a button was clicked.
+
+## **_What have I learned_**
+Vue and more Vue.
+
+I need to be more clear when and how to use ref, shallowRef in the future. I am still not sure why and what cases I need to use which one, but it will come. Other challenge within Vue is not mixing up the different "method" and approach between option and composition API. 
+
+It was a great mini project to see how the CRUD operation can work and even though I "suffered" here and there, I am really happy I figured out and found solution for all my problems. :)
+
+## Deployed: 2022.October

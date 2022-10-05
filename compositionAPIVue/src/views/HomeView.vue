@@ -10,7 +10,6 @@
                         <div class="py-3 d-flex flex-column justify-content-between">
                             <h4 for="task" class="p-2 fw-bold">New Task</h4> 
                             <input type="text" class="form-control my-2" id="task" placeholder="To do ..." v-model="newTodoTitle"> 
-                            <p>{{newTodo}}</p>
                             <button class="btn btn-primary my-2" @click="addTodo">Add task </button>
                         </div>
                         <hr>
@@ -18,7 +17,7 @@
                         <div>
                             <ul class="list-group p-2">
                               <div v-for="todo in todos" :key="todo.id">
-                              <OneTask :todo="todo"></OneTask>
+                              <OneTask :todo="todo" :todos="todos"></OneTask>
                               </div>
                             </ul>
                         </div> 
@@ -46,14 +45,12 @@ export default {
     console.log("setup Home")
     const {todos, error, loadData} = getToDos()
 
-const newTodoTitle = ref("")
+    let newTodoTitle = ref("")
     const addTodo = ()=>{
       console.log("add")
-      const newTodo = shallowRef({title: newTodoTitle.value , completed:false, id:Math.random()*10})
-      todos.value.push(newTodo.value)
-      console.log(todos.value)
-      console.log(todos)
-      return todos
+      todos.value.push({title: newTodoTitle.value , completed:false, id:Math.random()*10})
+      console.log(todos.value)// new task is added in the array
+      newTodoTitle.value = ""
     }
      
   return {todos, error, loadData, newTodoTitle, addTodo}

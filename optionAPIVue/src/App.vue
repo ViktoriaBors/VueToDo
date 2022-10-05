@@ -14,19 +14,20 @@
                     class="form-control my-2"
                     id="task"
                     placeholder="To do ..."
+                    v-model="newTodoTitle"
                   />
-                  <button class="btn btn-primary my-2">Add task</button>
+                  <button class="btn btn-primary my-2" @click="addTodo">Add task</button>
                 </div>
                 <hr />
                 <h4 class="p-3 fw-bold">Your task list</h4>
                 <div>
-                  <!--
+                  
                   <ul class="list-group p-2">
                     <div v-for="todo in todos" :key="todo.id">
-                      <OneTask :todo="todo"></OneTask>
+                      <OneTask :todo="todo" :todos="todos"></OneTask>
                     </div>
                   </ul>
-                  -->
+                  
                 </div>
               </div>
             </div>
@@ -38,23 +39,27 @@
 </template>
 
 <script>
-// import OneTask from "../components/OneTask.vue";
-import {shallowRef, ref} from "vue"
+import OneTask from "../src/components/OneTask.vue";
 
 export default {
   name: "App",
   components: {
-    //OneTask,
+    OneTask,
   },
   data(){
     return {
-      todos : null,
-      error : null,
-      show: false
+      todos : [],
+      error : "",
+      newTodoTitle : "",
     }
   },
   methods: {
-
+      addTodo(){
+        console.log("add new")
+        this.todos.push({title: this.newTodoTitle, completed:false, id:Math.random()*10})
+        console.log(this.todos) 
+        this.newTodoTitle = ""     
+      }
   },
   async mounted(){
       let resp = await fetch("https://jsonplaceholder.typicode.com/todos");
@@ -64,10 +69,8 @@ export default {
       }
      let data = await resp.json();
 
-      this.todos= shallowRef(data.splice(0,5))
-      console.log(this.todos, data);
-
-      this.show = true
+      this.todos= (data.splice(0,5))
+      console.log(this.todos);
   }
 };
 </script>
