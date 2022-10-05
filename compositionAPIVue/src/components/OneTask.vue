@@ -40,7 +40,7 @@ export default {
       console.log(props.todo)
 
       const editTodoTitle = ref("")
-      let showInput = ref("")
+      let showInput = ref(false)
 
       const deleteTodo = (todo, todos)=>{
         console.log("delete one wit id " + todo.id)     
@@ -55,7 +55,7 @@ export default {
       }
       const editTodo = ()=>{
         console.log("edit todo with id ")
-        showInput.value = true       
+        showInput.value = !showInput.value     
         console.log(showInput.value)
       }
       const saveTitle = (todo)=>{
